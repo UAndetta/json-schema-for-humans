@@ -231,6 +231,8 @@ class MarkdownTemplate(object):
         else:
             title = title.strip()
 
+        html_id = html_id.lower()
+
         # reset heading depth greater than current depth
         for curDepth in range(
             depth + 1, max(int(heading) for heading in self.headings) + 1 if self.headings else depth + 1
@@ -263,7 +265,6 @@ class MarkdownTemplate(object):
                 menu += f' <a name="{html_id}"></a>{title}'
 
         # store current heading in toc
-        html_id = html_id.lower()
         toc_menu = f"[{title}](#{html_id})"
         if self.config.template_md_options.get("show_heading_numbers"):
             toc_menu = f"[{heading_numbers} {title}](#{html_id})"
