@@ -263,6 +263,7 @@ class MarkdownTemplate(object):
                 menu += f' <a name="{html_id}"></a>{title}'
 
         # store current heading in toc
+        html_id = html_id.lower()
         toc_menu = f"[{title}](#{html_id})"
         if self.config.template_md_options.get("show_heading_numbers"):
             toc_menu = f"[{heading_numbers} {title}](#{html_id})"
