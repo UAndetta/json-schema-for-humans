@@ -290,6 +290,7 @@ class MarkdownTemplate(object):
                 second_heading_depth = heading["depth"]
 
             # Ensure we have no space at first level for TOC to be recognized
+            print(indent)
             indent = "  " * (heading["depth"] - second_heading_depth)
             toc_str += indent + "- " + heading["menu"] + "\n"
 
@@ -413,7 +414,7 @@ class MarkdownTemplate(object):
             assert schema.links_to
             schema_link_name = schema.links_to.link_name
             html_id = schema.links_to.html_id
-            type_info.append(["**Same definition as**", f"[{ schema_link_name }](#{ html_id })"])
+            type_info.append(["**Same definition as**", f"[{schema_link_name}](#{html_id})"])
         elif schema.refers_to:
             type_info.append(["**Defined in**", schema.ref_path])
 
