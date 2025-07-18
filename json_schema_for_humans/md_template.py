@@ -290,8 +290,8 @@ class MarkdownTemplate(object):
                 second_heading_depth = heading["depth"]
 
             # Ensure we have no space at first level for TOC to be recognized
-            print(indent)
             indent = "  " * (heading["depth"] - second_heading_depth)
+            print(indent)
             toc_str += indent + "- " + heading["menu"] + "\n"
 
         return toc_str
