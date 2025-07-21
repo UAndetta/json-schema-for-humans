@@ -294,7 +294,6 @@ class MarkdownTemplate(object):
             # Ensure we have no space at first level for TOC to be recognized
             indent = "  " * (heading["depth"] - second_heading_depth)
             toc_str += indent + "- " + heading["menu"] + "\n"
-            print(toc_str)
 
         return toc_str
 
