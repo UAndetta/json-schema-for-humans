@@ -139,7 +139,7 @@ def array_items(schema: SchemaNode, title: str) -> List[List[str]]:
     for i, item in enumerate(schema.array_items):
         item_label = item.name_for_breadcrumbs or f"{title} {i}"
         item_html_id = item.html_id
-        items.append([f"[{item_label}](#{item_html_id})"])
+        items.append([f"[{item_label}](#{item_html_id.lower()})"])
 
     return items
 
@@ -166,7 +166,7 @@ def array_items_restrictions(schema: SchemaNode) -> List[List[str]]:
         item_html_id = item.html_id
         items_restrictions.append(
             [
-                f"[{item_label}](#{item_html_id})",
+                f"[{item_label}](#{item_html_id.lower()})",
                 escape_for_table(first_line_fixed(item.description or "-")),
             ]
         )
@@ -231,7 +231,8 @@ class MarkdownTemplate(object):
         else:
             title = title.strip()
 
-        html_id = html_id.lower()
+        if isinstance(html_id, str):
+            html_id = html_id.lower()
 
         # reset heading depth greater than current depth
         for curDepth in range(
@@ -415,7 +416,7 @@ class MarkdownTemplate(object):
             assert schema.links_to
             schema_link_name = schema.links_to.link_name
             html_id = schema.links_to.html_id
-            type_info.append(["**Same definition as**", f"[{schema_link_name}](#{html_id})"])
+            type_info.append(["**Same definition as**", f"[{schema_link_name}](#{html_id.lower()})"])
         elif schema.refers_to:
             type_info.append(["**Defined in**", schema.ref_path])
 
@@ -430,9 +431,9 @@ class MarkdownTemplate(object):
                 if sub_property.is_additional_properties_schema:
                     html_id = sub_property.html_id
                     if self.config.md_badge_as_image:
-                        additional_properties = f"[{self.should_conform_badge}](#{html_id})"
+                        additional_properties = f"[{self.should_conform_badge}](#{html_id.lower()})"
                     else:
-                        additional_properties = f"[Each additional property must conform to the schema](#{html_id})"
+                        additional_properties = f"[Each additional property must conform to the schema](#{html_id.lower()})"
                     break
                 else:
                     additional_properties = self.badge_allowed
